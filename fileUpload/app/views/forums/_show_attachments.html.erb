@@ -1,0 +1,11 @@
+<h3>Attachments</h3>
+<% @attachments.each do |attachment| %>
+<%= "Name:"%><%= link_to "#{attachment.file_name}", download_attachment_attachment_path(attachment.id) %>
+<%= "File size:"%><%= attachment.file_size%>
+
+
+<%= link_to 'Edit', edit_attachment_path(attachment) %>
+ <td><%= link_to 'Destroy', attachment, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+
+<br>
+<% end %>

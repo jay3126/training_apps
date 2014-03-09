@@ -1,0 +1,44 @@
+<%if user_signed_in?%>
+<%= link_to "Logout", destroy_user_session_path, method: :delete%>
+<%end%>
+<h1>Listing posts</h1>
+<% if can?(:destroy, @post) %>
+  <%= link_to('Del', @post, class: 'btn-gray thinner-padding', method: :delete, data: { confirm: 'Are you sure?' }) %>
+<% end %>
+<%# using cannot? %>
+<%# Typically, can? is used a lot more than cannot? %>
+
+<% if cannot?(:destroy, @post) %>
+  <p>It looks like you cannot delete this post. If you want this post to be deleted, please contact the administrator or the owner.</p>
+<% end %>
+<table>
+  <thead>
+    <tr>
+      <th>User</th>
+      <th>Title</th>
+      <th>Content</th>
+      <th>Restricted</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @posts.each do |post| %>
+      <tr>
+        <td><%= post.user.present? ? post.user.email : "" %></td>
+        <td><%= post.title %></td>
+        <td><%= post.content %></td>
+        <td><%= post.restricted %></td>
+        <td><%= link_to 'Show', post %></td>
+        <td><%= link_to 'Edit', edit_post_path(post) %></td>
+        <td><%= link_to 'Destroy', post, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Post', new_post_path %>

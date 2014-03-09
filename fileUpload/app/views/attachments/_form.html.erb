@@ -1,0 +1,29 @@
+<%= form_for(@attachment) do |f| %>
+  <% if @attachment.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@attachment.errors.count, "error") %> prohibited this attachment from being saved:</h2>
+
+      <ul>
+      <% @attachment.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+<% if @forum.present?%>
+<%= f.hidden_field :forum_id, value: @forum.id %>
+<%end%>
+
+  <div class="field">
+    <%= f.label :file_summary %><br>
+    <%= f.text_area :file_summary %>
+  </div>
+  <div class="field">
+    <%= f.label :file_name %><br>
+    <%= f.file_field :file_name %>
+  </div>
+  
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

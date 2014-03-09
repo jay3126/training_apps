@@ -1,0 +1,36 @@
+<h1>Listing forums</h1>
+
+<%= link_to "Sign up", new_user_registration_path%>
+<% if user_signed_in?%>
+<%= link_to "Logout", destroy_user_session_path, method: :delete%>
+<%else %>
+<%= link_to "Login", new_user_session_path%>
+<%end%>
+<table>
+  <thead>
+    <tr>
+
+      <th>Name</th>
+        <th>Summary</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @forums.each do |forum| %>
+      <tr>
+        <td><%= forum.name %></td>
+          <td><%= forum.summary %></td>
+        <td><%= link_to 'Show', forum %></td>
+        <td><%= link_to 'Edit', edit_forum_path(forum) %></td>
+        <td><%= link_to 'Destroy', forum, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Forum', new_forum_path %>
